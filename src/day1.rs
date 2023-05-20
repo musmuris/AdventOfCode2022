@@ -1,17 +1,9 @@
-use std::env;
 use std::fs;
 use std::cmp;
 
-fn main() {
+pub fn day1() {
 
-    let args: Vec<String> = env::args().collect();
-
-    let file_path;
-    if args.len() < 2 {
-        file_path = r"C:\dev\AdventOfCode2022\Day1\input.txt"
-    } else {    
-        file_path = &args[1];
-    }
+    let file_path = r"C:\dev\AdventOfCode2022\src\input.txt";
 
     println!("Using file {}", file_path);
 
