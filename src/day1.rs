@@ -1,6 +1,15 @@
 
 pub fn day1() {
 
+    // Reading from file - left in as an example for
+    // future Nigel when he forgets
+    // let file_path = r"C:\dev\AdventOfCode2022\src\input.txt";
+
+    // println!("Using file {}", file_path);
+
+    // let contents = fs::read_to_string(file_path)
+    //      .expect("Should have been able to read the file");
+
     let input = include_str!("day1.txt");
 
     let mut acc = 0;

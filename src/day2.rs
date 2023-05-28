@@ -25,7 +25,7 @@ pub fn day2() {
         }
     }
 
-    println!("{}", total);
+    println!("{total}");
 
     let scores2 = HashMap::from([
         ("A X", 3 + 0),
@@ -46,5 +46,5 @@ pub fn day2() {
             _ => () 
         }
     }
-    println!("{}", total);
+    println!("{total}");
 }
