@@ -21,6 +21,10 @@ impl Range {
     fn contains(&self, other: &Self) -> bool {
         self.start <= other.start && self.end >= other.end
     }
+
+    fn has_overlap(&self, other: &Self) -> bool {
+        self.start <= other.end && other.start <= self.end
+    }
 }
 
 pub fn day4() {
@@ -38,6 +42,7 @@ pub fn day4() {
     let lines = input.lines().collect::<Vec<_>>();
 
     let mut acc = 0;
+    let mut acc2 = 0;
     for line in lines{
         let ranges = line.split(',')
             .map(|s| Range::from(s))
@@ -45,6 +50,10 @@ pub fn day4() {
         if ranges[0].contains(&ranges[1]) || ranges[1].contains(&ranges[0]){
             acc += 1;
         }
+        if ranges[0].has_overlap(&ranges[1]) {
+            acc2 += 1;
+        }
     }
     println!("{}", acc);
+    println!("{}", acc2);
 }
