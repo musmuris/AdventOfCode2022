@@ -3,7 +3,7 @@ pub mod day1;
 pub mod day2;
 pub mod day3;
 pub mod day4;
-
+pub mod day5;
 
 
 fn main() {
@@ -15,4 +15,6 @@ fn main() {
     day3::day3();
     println!("Day 4");
     day4::day4();
+    println!("Day 5");
+    day5::day5();
 }
