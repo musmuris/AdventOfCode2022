@@ -1,7 +1,8 @@
-pub fn day5() {
-    let input = include_str!("day5.txt");
+pub fn day5(input: &str) -> (String, String) {
+    
+    let delim = if input.contains("\r\n") {"\r\n\r\n"} else {"\n\n"};
 
-    let (stack_lines, move_lines) = input.split_once("\r\n\r\n").unwrap();
+    let (stack_lines, move_lines) = input.split_once(delim).unwrap();
 
     let mut stack_iterator = stack_lines.lines().rev();
     let first = stack_iterator.next().unwrap();
@@ -25,6 +26,8 @@ pub fn day5() {
         let count: usize = s.by_ref().skip(1).next().unwrap().parse().unwrap();
         let from: usize = s.by_ref().skip(1).next().unwrap().parse().unwrap();
         let to: usize = s.skip(1).next().unwrap().parse().unwrap();
+
+        // Part 1
         for _ in 0..count {
             let p = stacks[from - 1].pop().unwrap();
             stacks[to - 1].push(p)
@@ -36,16 +39,15 @@ pub fn day5() {
         // stacks2[to-1].extend(end);
 
         // Or
-        //let end = stacks2[from-1].iter().rev().take(3);
-        //stacks2[to-1].extend(end);
+        // let end = stacks2[from-1].iter().rev().take(3);
+        // stacks2[to-1].extend(end);
 
         let n = stacks2[from - 1].len() - count;
         let end = stacks2[from - 1].split_off(n);
         stacks2[to - 1].extend(end);
     }
 
-    println!("{}", make_result(&stacks));
-    println!("{}", make_result(&stacks2));
+    (make_result(&stacks),  make_result(&stacks2))
 }
 
 
@@ -55,4 +57,10 @@ fn make_result(stacks: &Vec<Vec<char>>) -> String {
         result.push(stack[stack.len() - 1]);
     }
     return result;
+}
+
+fn main() {
+    let input = include_str!("day5.txt");
+    let (p1,p2) = day5(input);
+    println!("{}\n{}", p1, p2);
 }

@@ -2,11 +2,9 @@
 use std::collections::HashSet;
 use itertools::Itertools;
 
-pub fn day3() {
+pub fn day3(input: &str) -> (u32,u32) {
 
-    let input = include_str!("day3.txt");
-
-    let mut acc : u32= 0;
+    let mut acc1 : u32= 0;
     for line in input.lines() {
 
         if !line.is_ascii() {
@@ -19,11 +17,11 @@ pub fn day3() {
         let sames = chars1.intersection(&chars2);
         let same = sames.at_most_one();
 
-        acc = acc + map_priority(*same.unwrap().unwrap())        
+        acc1 += map_priority(*same.unwrap().unwrap())        
     }
 
-    println!("{}", acc);
-    acc = 0;
+    
+    let mut acc2 = 0;
     for set in &input.lines().chunks(3) {
         let chunk_lines : Vec<HashSet<u8>> = set.map(|x| x.bytes().collect()).collect();
         let mut found: Option<u8> = None;
@@ -39,9 +37,10 @@ pub fn day3() {
             panic!("No match found")
         }
 
-        acc = acc + map_priority(found.unwrap())        
+        acc2 += map_priority(found.unwrap())        
     }
-    println!("{}", acc);
+    
+    (acc1, acc2)
 }
 
 fn map_priority(item: u8) -> u32 {
@@ -50,4 +49,10 @@ fn map_priority(item: u8) -> u32 {
         b'A'..=b'Z' => item - b'A' + 27,
         _ => panic!("Expected a..z or A..Z characters only")
     }.into()
+}
+
+fn main() {
+    let input = include_str!("day3.txt");
+    let (p1,p2) = day3(input);
+    println!("{}\n{}", p1, p2);
 }

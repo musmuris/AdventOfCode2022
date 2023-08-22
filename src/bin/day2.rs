@@ -1,9 +1,7 @@
 
 use std::collections::HashMap;
 
-pub fn day2() {
-
-    let input = include_str!("day2.txt");
+pub fn day2(input: &str) -> (i32, i32) {
 
     let scores = HashMap::from([
         ("A X", 1 + 3),
@@ -17,15 +15,15 @@ pub fn day2() {
         ("C Z", 3 + 3),
     ]);
 
-    let mut total = 0;
+    let mut total1 = 0;
     for line in input.lines() {
         match scores.get(line) {
-            Some(&score) => total += score,
+            Some(&score) => total1 += score,
             _ => () 
         }
     }
 
-    println!("{total}");
+
 
     let scores2 = HashMap::from([
         ("A X", 3 + 0),
@@ -39,12 +37,19 @@ pub fn day2() {
         ("C Z", 1 + 6),
     ]);
 
-    total = 0;
+    let mut total2 = 0;
     for line in input.lines() {
         match scores2.get(line) {
-            Some(&score) => total += score,
+            Some(&score) => total2 += score,
             _ => () 
         }
     }
-    println!("{total}");
+    
+    (total1, total2)
+}
+
+fn main() {
+    let input = include_str!("day2.txt");
+    let (p1,p2) = day2(input);
+    println!("{}\n{}", p1, p2);
 }
