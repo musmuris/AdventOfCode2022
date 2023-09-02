@@ -6,19 +6,15 @@ pub fn day7(input: &str) -> (u32, u32) {
     let mut dir_stack: Vec<String> = Vec::new();
     let mut dirs: HashMap<String,u32> = HashMap::new();
         
-    let mut totSize: u32 = 0;
     for line in input.lines() {        
         if line.starts_with("$ cd") {
             let(_,name) = line.split_at(5);
             match name {
-                ".." => {
-                    let size = dirs.get(&current_dir).cloned().unwrap_or(0);                    
-                    current_dir = dir_stack.pop().unwrap();
-                    update_dir_size(&mut dirs, &current_dir, size);                    
+                ".." => {                    
+                    cd_up(&mut dirs, &mut current_dir, &mut dir_stack);                    
                 },
                 "/" => { 
-                    cd_root(&mut dirs, &current_dir, &mut dir_stack);                                    
-                    current_dir = "root".to_string();
+                    cd_root(&mut dirs, &mut current_dir, &mut dir_stack);                    
                 },
                 rest => { 
                     dir_stack.push(current_dir.clone());
@@ -30,19 +26,11 @@ pub fn day7(input: &str) -> (u32, u32) {
             // Line is a size and filename
             let (size_str, _) = line.split_once(" ").unwrap();
             let size = size_str.parse::<u32>().unwrap();            
-            totSize += size;
             update_dir_size(&mut dirs, &current_dir, size);
         }
     }            
 
-    while dir_stack.len() > 0 {
-        let size = dirs.get(&current_dir).cloned().unwrap_or(0);                    
-        current_dir = dir_stack.pop().unwrap();
-        update_dir_size(&mut dirs, &current_dir, size);                    
-    }
-
-    current_dir = "root".to_string();
-    //dbg!(dirs.clone());
+    cd_root(&mut dirs, &mut current_dir, &mut dir_stack);
 
     let ans1 = dirs.values().cloned()
         .filter(|&v| v <= 100000)        
@@ -51,13 +39,8 @@ pub fn day7(input: &str) -> (u32, u32) {
     const FS_SIZE: u32 = 70000000;
     const NEED_SIZE: u32 = 30000000;
 
-    println!("Root {}", dirs.get("root").unwrap());
-    println!("Tot  {}", totSize);
     let free_size = FS_SIZE - dirs.get("root").unwrap();
-    println!("Free size {}", free_size);
-
     let find_size = NEED_SIZE - free_size;
-    println!("Need to find {}", find_size);
 
     let ans2 = dirs.values().cloned()
         .filter(|&v| v >= find_size )        
@@ -66,11 +49,15 @@ pub fn day7(input: &str) -> (u32, u32) {
     return (ans1, ans2);
 }
 
-fn cd_root(dirs: &mut HashMap<String, u32>, current_dir: &str, dir_stack: &mut Vec<String>) {
-    let size = dirs.get(current_dir).cloned().unwrap_or(0);
-                    
-    for dir in dir_stack.drain(..) {                        
-        update_dir_size(dirs, &dir, size);
+fn cd_up(dirs: &mut HashMap<String, u32>, current_dir: &mut String, dir_stack: &mut Vec<String>) {
+    let size = dirs.get(current_dir.as_str()).cloned().unwrap_or(0);
+    *current_dir = dir_stack.pop().unwrap();
+    update_dir_size(dirs, current_dir.as_str(), size);
+}
+
+fn cd_root(dirs: &mut HashMap<String, u32>, current_dir: &mut String, dir_stack: &mut Vec<String>) {
+    while dir_stack.len() > 0 {
+        cd_up(dirs, current_dir, dir_stack)
     }
 }
 
