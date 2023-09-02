@@ -1,6 +1,4 @@
-
 pub fn day1(input: &str) -> (i32, i32) {
-
     let mut acc = 0;
     let mut elf = Vec::new();
     for line in input.lines() {
@@ -11,7 +9,7 @@ pub fn day1(input: &str) -> (i32, i32) {
                 acc = 0;
             }
         }
-    }   
+    }
     elf.sort();
     elf.reverse();
 
@@ -22,7 +20,6 @@ pub fn day1(input: &str) -> (i32, i32) {
 }
 
 fn main() {
-
     // Reading from file - left in as an example for
     // future Nigel when he forgets
     // let file_path = r"C:\dev\AdventOfCode2022\src\input.txt";
@@ -33,7 +30,7 @@ fn main() {
     //      .expect("Should have been able to read the file");
 
     let input = include_str!("day1.txt");
-    let (p1,p2) = day1(input);
+    let (p1, p2) = day1(input);
     println!("{}\n{}", p1, p2);
 }
 
@@ -43,8 +40,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test1()
-    {
+    fn test1() {
         let input = "1000
 2000
 3000
@@ -60,9 +56,9 @@ mod tests {
 
 10000";
 
-        let (p1,p2) = day1(input);
-        
+        let (p1, p2) = day1(input);
+
         assert_eq!(p1, 24000);
-        assert_eq!(p2, 41000);        
+        assert_eq!(p2, 41000);
     }
 }

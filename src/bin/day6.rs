@@ -1,5 +1,5 @@
-use  std::collections::VecDeque;
-use  std::collections::BTreeSet;
+use std::collections::BTreeSet;
+use std::collections::VecDeque;
 
 fn find_marker(input: &str, window_size: usize) -> Option<usize> {
     let mut seen: VecDeque<char> = VecDeque::new();
@@ -10,20 +10,22 @@ fn find_marker(input: &str, window_size: usize) -> Option<usize> {
         }
         let dupes = seen.iter().collect::<BTreeSet<&char>>();
         if dupes.len() == window_size {
-            return Some(inx+1);
+            return Some(inx + 1);
         }
     }
     None
 }
 
-pub fn day6(input: &str) -> (usize, usize){
-    (find_marker(input, 4).unwrap(), find_marker(input, 14).unwrap())
+pub fn day6(input: &str) -> (usize, usize) {
+    (
+        find_marker(input, 4).unwrap(),
+        find_marker(input, 14).unwrap(),
+    )
 }
-
 
 fn main() {
     let input = include_str!("day6.txt");
-    let (p1,p2) = day6(input);
+    let (p1, p2) = day6(input);
     println!("{}\n{}", p1, p2);
 }
 
@@ -39,26 +41,26 @@ mod tests {
 
     #[test]
     fn test1() {
-        run_test("mjqjpqmgbljsphdztnvjfqwrcgsmlb", (7,19));
+        run_test("mjqjpqmgbljsphdztnvjfqwrcgsmlb", (7, 19));
     }
 
     #[test]
     fn test2() {
-        run_test("bvwbjplbgvbhsrlpgdmjqwftvncz", (5,23));
+        run_test("bvwbjplbgvbhsrlpgdmjqwftvncz", (5, 23));
     }
 
     #[test]
     fn test3() {
-        run_test("nppdvjthqldpwncqszvftbrmjlhg", (6,23));
+        run_test("nppdvjthqldpwncqszvftbrmjlhg", (6, 23));
     }
 
     #[test]
     fn test4() {
-        run_test("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", (10,29));
+        run_test("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", (10, 29));
     }
 
     #[test]
     fn test5() {
-        run_test("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", (11,26));
+        run_test("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", (11, 26));
     }
 }

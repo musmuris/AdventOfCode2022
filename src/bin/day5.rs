@@ -1,6 +1,9 @@
 pub fn day5(input: &str) -> (String, String) {
-    
-    let delim = if input.contains("\r\n") {"\r\n\r\n"} else {"\n\n"};
+    let delim = if input.contains("\r\n") {
+        "\r\n\r\n"
+    } else {
+        "\n\n"
+    };
 
     let (stack_lines, move_lines) = input.split_once(delim).unwrap();
 
@@ -47,9 +50,8 @@ pub fn day5(input: &str) -> (String, String) {
         stacks2[to - 1].extend(end);
     }
 
-    (make_result(&stacks),  make_result(&stacks2))
+    (make_result(&stacks), make_result(&stacks2))
 }
-
 
 fn make_result(stacks: &Vec<Vec<char>>) -> String {
     let mut result = String::new();
@@ -61,6 +63,6 @@ fn make_result(stacks: &Vec<Vec<char>>) -> String {
 
 fn main() {
     let input = include_str!("day5.txt");
-    let (p1,p2) = day5(input);
+    let (p1, p2) = day5(input);
     println!("{}\n{}", p1, p2);
 }
