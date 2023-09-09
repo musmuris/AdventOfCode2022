@@ -1,5 +1,7 @@
 use std::collections::HashSet;
 
+const INPUT: &str = include_str!("day9.txt");
+
 pub fn day9(input: &str) -> (usize, usize) {
     let mut visited1: HashSet<(i32, i32)> = HashSet::new();
     let mut visited9: HashSet<(i32, i32)> = HashSet::new();
@@ -45,8 +47,7 @@ pub fn day9(input: &str) -> (usize, usize) {
 }
 
 fn main() {
-    let input = include_str!("day9.txt");
-    let (p1, p2) = day9(input);
+    let (p1, p2) = day9(INPUT);
     println!("{}\n{}", p1, p2);
 }
 
@@ -56,17 +57,8 @@ mod tests {
 
     #[test]
     fn test1() {
-        let (p1, p2) = day9(
-            "R 4
-U 4
-L 3
-D 1
-R 4
-D 1
-L 5
-R 2
-",
-        );
+        let input = include_str!("day9.test1.txt");
+        let (p1, p2) = day9(input);
 
         assert_eq!(p1, 13);
         assert_eq!(p2, 1);
@@ -74,19 +66,18 @@ R 2
 
     #[test]
     fn test2() {
-        let (p1, p2) = day9(
-            "R 5
-U 8
-L 8
-D 3
-R 17
-D 10
-L 25
-U 20
-",
-        );
+        let input = include_str!("day9.test2.txt");
+        let (p1, p2) = day9(input);
 
         assert_eq!(p1, 88);
         assert_eq!(p2, 36);
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day9(INPUT);
+
+        assert_eq!(p1, 5683);
+        assert_eq!(p2, 2372);
     }
 }

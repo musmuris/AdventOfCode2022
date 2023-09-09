@@ -1,4 +1,4 @@
-use std::u8;
+const INPUT: &str = include_str!("day8.txt");
 
 struct TreeChecker<'a> {
     trees: &'a Vec<&'a [u8]>,
@@ -70,8 +70,7 @@ pub fn day8(input: &str) -> (u32, u32) {
 }
 
 fn main() {
-    let input = include_str!("day8.txt");
-    let (p1, p2) = day8(input);
+    let (p1, p2) = day8(INPUT);
     println!("{}\n{}", p1, p2);
 }
 
@@ -81,16 +80,18 @@ mod tests {
 
     #[test]
     fn test1() {
-        let (p1, p2) = day8(
-            "30373
-25512
-65332
-33549
-35390
-",
-        );
+        let input = include_str!("day8.test1.txt");
+        let (p1, p2) = day8(input);
 
         assert_eq!(p1, 21);
         assert_eq!(p2, 8);
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day8(INPUT);
+
+        assert_eq!(p1, 1560);
+        assert_eq!(p2, 252000);
     }
 }

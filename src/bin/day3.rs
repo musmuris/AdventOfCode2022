@@ -1,6 +1,8 @@
 use itertools::Itertools;
 use std::collections::HashSet;
 
+const INPUT: &str = include_str!("day3.txt");
+
 pub fn day3(input: &str) -> (u32, u32) {
     let mut acc1: u32 = 0;
     for line in input.lines() {
@@ -49,7 +51,29 @@ fn map_priority(item: u8) -> u32 {
 }
 
 fn main() {
-    let input = include_str!("day3.txt");
-    let (p1, p2) = day3(input);
+    let (p1, p2) = day3(INPUT);
     println!("{}\n{}", p1, p2);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test1() {
+        let input = include_str!("day3.test1.txt");
+
+        let (p1, p2) = day3(input);
+
+        assert_eq!(p1, 157);
+        assert_eq!(p2, 70);
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day3(INPUT);
+
+        assert_eq!(p1, 8252);
+        assert_eq!(p2, 2828);
+    }
 }

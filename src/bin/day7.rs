@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+const INPUT: &str = include_str!("day7.txt");
+
 pub fn day7(input: &str) -> (u32, u32) {
     let mut current_dir = "root".to_string();
     let mut dir_stack: Vec<String> = Vec::new();
@@ -73,10 +75,8 @@ fn update_dir_size(dirs: &mut HashMap<String, u32>, dir_to_update: &str, size: u
             dirs.insert(dir_to_update.to_string(), size);
         });
 }
-
 fn main() {
-    let input = include_str!("day7.txt");
-    let (p1, p2) = day7(input);
+    let (p1, p2) = day7(INPUT);
     println!("{}\n{}", p1, p2);
 }
 
@@ -86,33 +86,18 @@ mod tests {
 
     #[test]
     fn test1() {
-        let (p1, p2) = day7(
-            "$ cd /
-$ ls
-dir a
-14848514 b.txt
-8504156 c.dat
-dir d
-$ cd a
-$ ls
-dir e
-29116 f
-2557 g
-62596 h.lst
-$ cd e
-$ ls
-584 i
-$ cd ..
-$ cd ..
-$ cd d
-$ ls
-4060174 j
-8033020 d.log
-5626152 d.ext
-7214296 k",
-        );
+        let input = include_str!("day7.test1.txt");
+        let (p1, p2) = day7(input);
 
         assert_eq!(p1, 95437);
         assert_eq!(p2, 24933642);
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day7(INPUT);
+
+        assert_eq!(p1, 1390824);
+        assert_eq!(p2, 7490863);
     }
 }

@@ -1,3 +1,5 @@
+const INPUT: &str = include_str!("day4.txt");
+
 struct Range {
     start: u32,
     end: u32,
@@ -51,7 +53,29 @@ pub fn day4(input: &str) -> (i32, i32) {
 }
 
 fn main() {
-    let input = include_str!("day4.txt");
-    let (p1, p2) = day4(input);
+    let (p1, p2) = day4(INPUT);
     println!("{}\n{}", p1, p2);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test1() {
+        let input = include_str!("day4.test1.txt");
+
+        let (p1, p2) = day4(input);
+
+        assert_eq!(p1, 2);
+        assert_eq!(p2, 4);
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day4(INPUT);
+
+        assert_eq!(p1, 567);
+        assert_eq!(p2, 907);
+    }
 }

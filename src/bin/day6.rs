@@ -1,6 +1,8 @@
 use std::collections::BTreeSet;
 use std::collections::VecDeque;
 
+const INPUT: &str = include_str!("day6.txt");
+
 fn find_marker(input: &str, window_size: usize) -> Option<usize> {
     let mut seen: VecDeque<char> = VecDeque::new();
     for (inx, c) in input.chars().enumerate() {
@@ -24,8 +26,7 @@ pub fn day6(input: &str) -> (usize, usize) {
 }
 
 fn main() {
-    let input = include_str!("day6.txt");
-    let (p1, p2) = day6(input);
+    let (p1, p2) = day6(INPUT);
     println!("{}\n{}", p1, p2);
 }
 
@@ -62,5 +63,13 @@ mod tests {
     #[test]
     fn test5() {
         run_test("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", (11, 26));
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day6(INPUT);
+
+        assert_eq!(p1, 1658);
+        assert_eq!(p2, 2260);
     }
 }

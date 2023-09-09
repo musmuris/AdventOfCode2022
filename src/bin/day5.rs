@@ -1,3 +1,5 @@
+const INPUT: &str = include_str!("day5.txt");
+
 pub fn day5(input: &str) -> (String, String) {
     let delim = if input.contains("\r\n") {
         "\r\n\r\n"
@@ -62,7 +64,29 @@ fn make_result(stacks: &Vec<Vec<char>>) -> String {
 }
 
 fn main() {
-    let input = include_str!("day5.txt");
-    let (p1, p2) = day5(input);
+    let (p1, p2) = day5(INPUT);
     println!("{}\n{}", p1, p2);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test1() {
+        let input = include_str!("day5.test1.txt");
+
+        let (p1, p2) = day5(input);
+
+        assert_eq!(p1, "CMZ");
+        assert_eq!(p2, "MCD");
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day5(INPUT);
+
+        assert_eq!(p1, "TQRFCBSJJ");
+        assert_eq!(p2, "RMHFJNVFP");
+    }
 }

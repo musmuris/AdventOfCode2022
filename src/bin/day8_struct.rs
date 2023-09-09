@@ -1,3 +1,4 @@
+const INPUT: &str = include_str!("day8.txt");
 struct TreeChecker<'a> {
     trees: &'a Vec<&'a [u8]>,
     row_len: usize,
@@ -28,14 +29,14 @@ impl<'a> TreeChecker<'a> {
         }
     }
 
-    fn check_row(&mut self, row: usize, col_range: impl Iterator<Item=usize>) {
+    fn check_row(&mut self, row: usize, col_range: impl Iterator<Item = usize>) {
         self.max = 0;
         for col in col_range {
             self.check_tree(row, col);
         }
     }
 
-    fn check_col(&mut self, col: usize, row_range: impl Iterator<Item=usize>) {
+    fn check_col(&mut self, col: usize, row_range: impl Iterator<Item = usize>) {
         self.max = 0;
         for row in row_range {
             self.check_tree(row, col);
@@ -43,15 +44,14 @@ impl<'a> TreeChecker<'a> {
     }
 
     fn check_trees(&mut self) -> usize {
-
-        for row in 0..self.trees.len() {        
+        for row in 0..self.trees.len() {
             self.check_row(row, 0..self.row_len);
-            self.check_row(row, (0..self.row_len).rev());        
+            self.check_row(row, (0..self.row_len).rev());
         }
-    
+
         for col in 0..self.row_len {
             self.check_col(col, 0..self.trees.len());
-            self.check_col(col, (0..self.trees.len()).rev());         
+            self.check_col(col, (0..self.trees.len()).rev());
         }
 
         self.visible_count
@@ -69,8 +69,7 @@ pub fn day8(input: &str) -> (usize, usize) {
 }
 
 fn main() {
-    let input = include_str!("day8.txt");
-    let (p1, p2) = day8(input);
+    let (p1, p2) = day8(INPUT);
     println!("{}\n{}", p1, p2);
 }
 
@@ -80,16 +79,9 @@ mod tests {
 
     #[test]
     fn test1() {
-        let (p1, p2) = day8(
-            "30373
-25512
-65332
-33549
-35390
-",
-        );
+        let input = include_str!("day8.test1.txt");
+        let (p1, _p2) = day8(input);
 
         assert_eq!(p1, 21);
-        //assert_eq!(p2, 21);
     }
 }

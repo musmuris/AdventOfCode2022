@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+const INPUT: &str = include_str!("day2.txt");
+
 pub fn day2(input: &str) -> (i32, i32) {
     let scores = HashMap::from([
         ("A X", 1 + 3),
@@ -43,7 +45,28 @@ pub fn day2(input: &str) -> (i32, i32) {
 }
 
 fn main() {
-    let input = include_str!("day2.txt");
-    let (p1, p2) = day2(input);
+    let (p1, p2) = day2(INPUT);
     println!("{}\n{}", p1, p2);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test1() {
+        let input = include_str!("day2.test1.txt");
+        let (p1, p2) = day2(input);
+
+        assert_eq!(p1, 15);
+        assert_eq!(p2, 12);
+    }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day2(INPUT);
+
+        assert_eq!(p1, 14827);
+        assert_eq!(p2, 13889);
+    }
 }
