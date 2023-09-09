@@ -38,7 +38,7 @@ pub fn day8(input: &str) -> (u32, u32) {
         }
     }
 
-    return (number, 0);
+    (number, 0)
 }
 
 fn main() {

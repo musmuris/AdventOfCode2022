@@ -1,7 +1,7 @@
 
 pub fn day0(input: &str) -> (usize, usize) {
 
-    return (input.len(), input.len());
+    (input.len(), input.len())
 }
 
 fn main() {

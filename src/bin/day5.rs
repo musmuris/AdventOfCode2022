@@ -58,7 +58,7 @@ fn make_result(stacks: &Vec<Vec<char>>) -> String {
     for stack in stacks.iter() {
         result.push(stack[stack.len() - 1]);
     }
-    return result;
+    result
 }
 
 fn main() {

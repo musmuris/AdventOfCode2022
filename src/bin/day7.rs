@@ -49,7 +49,7 @@ pub fn day7(input: &str) -> (u32, u32) {
         .min()
         .unwrap();
 
-    return (ans1, ans2);
+    (ans1, ans2)
 }
 
 fn cd_up(dirs: &mut HashMap<String, u32>, current_dir: &mut String, dir_stack: &mut Vec<String>) {

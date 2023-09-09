@@ -9,7 +9,6 @@ pub fn day9(input: &str) -> (usize, usize) {
     let mut head: (i32, i32) = (0, 0);
     let mut tails: Vec<(i32, i32)> = vec![(0, 0); 9];
     for line in input.lines() {
-
         let Some((dir, count)) = line.split_once(" ") else { continue; };
 
         let count = count.parse::<i32>().unwrap();
@@ -42,7 +41,7 @@ pub fn day9(input: &str) -> (usize, usize) {
         }
     }
     //dbg!(visited1.clone());
-    return (visited1.len(), visited9.len());
+    (visited1.len(), visited9.len())
 }
 
 fn main() {

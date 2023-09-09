@@ -66,7 +66,7 @@ pub fn day8(input: &str) -> (u32, u32) {
         }
     }
 
-    return (vis_count, max_score);
+    (vis_count, max_score)
 }
 
 fn main() {
