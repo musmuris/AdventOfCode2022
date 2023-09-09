@@ -11,7 +11,7 @@ pub fn day9(input: &str) -> (usize, usize) {
     let mut head: (i32, i32) = (0, 0);
     let mut tails: Vec<(i32, i32)> = vec![(0, 0); 9];
     for line in input.lines() {
-        let Some((dir, count)) = line.split_once(" ") else { continue; };
+        let Some((dir, count)) = line.split_once(' ') else { continue; };
 
         let count = count.parse::<i32>().unwrap();
         let (dx, dy) = match dir {
@@ -26,23 +26,23 @@ pub fn day9(input: &str) -> (usize, usize) {
             head = (head.0 + dx, head.1 + dy);
 
             let mut knot_ahead = head;
-            for inx in 0..tails.len() {
-                let knot = tails[inx];
+            for (inx, knot) in tails.iter_mut().enumerate() {
+                
                 let delta = (knot_ahead.0 - knot.0, knot_ahead.1 - knot.1);
                 if delta.0.abs() > 1 || delta.1.abs() > 1 {
-                    tails[inx] = (knot.0 + delta.0.signum(), knot.1 + delta.1.signum());
+                    *knot = (knot.0 + delta.0.signum(), knot.1 + delta.1.signum());
                     if inx == 0 {
-                        visited1.insert(tails[inx]);
+                        visited1.insert(*knot);
                     }
                     if inx == 8 {
-                        visited9.insert(tails[inx]);
+                        visited9.insert(*knot);
                     }
                 }
-                knot_ahead = tails[inx];
+                knot_ahead = *knot;
             }
         }
     }
-    //dbg!(visited1.clone());
+
     (visited1.len(), visited9.len())
 }
 
