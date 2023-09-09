@@ -29,7 +29,7 @@ pub fn day3(input: &str) -> (u32, u32) {
                 }
             }
         }
-        if found == None {
+        if found.is_none() {
             panic!("No match found")
         }
 
