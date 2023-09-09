@@ -21,4 +21,12 @@ mod tests {
         assert_eq!(p1, 23);
         assert_eq!(p2, 23);
     }
+
+    #[test]
+    fn test_main() {
+        let (p1, p2) = day0(INPUT);
+
+        assert_eq!(p1, 23);
+        assert_eq!(p2, 23);
+    }
 }
