@@ -19,13 +19,13 @@ pub fn day7(input: &str) -> (u32, u32) {
                 }
                 rest => {
                     dir_stack.push(current_dir.clone());
-                    current_dir.push_str("/");
+                    current_dir.push('/');
                     current_dir.push_str(rest);
                 }
             }
         } else if !line.starts_with("$ ls") && !line.starts_with("dir") {
             // Line is a size and filename
-            let (size_str, _) = line.split_once(" ").unwrap();
+            let (size_str, _) = line.split_once(' ').unwrap();
             let size = size_str.parse::<u32>().unwrap();
             update_dir_size(&mut dirs, &current_dir, size);
         }
@@ -33,11 +33,7 @@ pub fn day7(input: &str) -> (u32, u32) {
 
     cd_root(&mut dirs, &mut current_dir, &mut dir_stack);
 
-    let ans1 = dirs
-        .values()
-        .cloned()
-        .filter(|&v| v <= 100000)
-        .fold(0, |a, v| a + v);
+    let ans1 = dirs.values().cloned().filter(|&v| v <= 100000).sum();
 
     const FS_SIZE: u32 = 70000000;
     const NEED_SIZE: u32 = 30000000;
@@ -61,7 +57,7 @@ fn cd_up(dirs: &mut HashMap<String, u32>, current_dir: &mut String, dir_stack: &
 }
 
 fn cd_root(dirs: &mut HashMap<String, u32>, current_dir: &mut String, dir_stack: &mut Vec<String>) {
-    while dir_stack.len() > 0 {
+    while !dir_stack.is_empty() {
         cd_up(dirs, current_dir, dir_stack)
     }
 }

@@ -28,9 +28,9 @@ pub fn day5(input: &str) -> (String, String) {
     let mut stacks2 = stacks.clone();
     for line in move_lines.lines() {
         let mut s = line.split_ascii_whitespace();
-        let count: usize = s.by_ref().skip(1).next().unwrap().parse().unwrap();
-        let from: usize = s.by_ref().skip(1).next().unwrap().parse().unwrap();
-        let to: usize = s.skip(1).next().unwrap().parse().unwrap();
+        let count: usize = s.by_ref().nth(1).unwrap().parse().unwrap();
+        let from: usize = s.by_ref().nth(1).unwrap().parse().unwrap();
+        let to: usize = s.nth(1).unwrap().parse().unwrap();
 
         // Part 1
         for _ in 0..count {
@@ -55,7 +55,7 @@ pub fn day5(input: &str) -> (String, String) {
     (make_result(&stacks), make_result(&stacks2))
 }
 
-fn make_result(stacks: &Vec<Vec<char>>) -> String {
+fn make_result(stacks: &[Vec<char>]) -> String {
     let mut result = String::new();
     for stack in stacks.iter() {
         result.push(stack[stack.len() - 1]);

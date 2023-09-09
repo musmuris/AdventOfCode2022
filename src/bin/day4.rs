@@ -29,13 +29,6 @@ impl Range {
 }
 
 pub fn day4(input: &str) -> (i32, i32) {
-    let _input = "2-4,6-8
-2-3,4-5
-5-7,7-9
-2-8,3-7
-6-6,4-6
-2-6,4-8";
-
     let lines = input.lines().collect::<Vec<_>>();
 
     let mut acc1 = 0;

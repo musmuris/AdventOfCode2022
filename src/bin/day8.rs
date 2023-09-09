@@ -47,8 +47,10 @@ pub fn day8(input: &str) -> (u32, u32) {
     let mut tc = TreeChecker::new(&trees);
 
     let (mut vis_count, mut max_score) = (0, 0);
+    let rowlen = trees[0].len();
+
     for row in 0..trees.len() {
-        for col in 0..trees[row].len() {
+        for col in 0..rowlen {
             let (mut visible, mut score) = (false, 1);
 
             for (dr, dc) in [(-1, 0), (0, -1), (1, 0), (0, 1)] {
