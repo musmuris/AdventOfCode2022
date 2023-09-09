@@ -1,13 +1,15 @@
 use std::collections::HashSet;
 
 pub fn day9(input: &str) -> (usize, usize) {
-    let mut visited: HashSet<(i32, i32)> = HashSet::new();
+    let mut visited1: HashSet<(i32, i32)> = HashSet::new();
+    let mut visited9: HashSet<(i32, i32)> = HashSet::new();
 
-    visited.insert((0,0));
+    visited1.insert((0, 0));
+    visited9.insert((0, 0));
     let mut head: (i32, i32) = (0, 0);
-    let mut tail = (0, 0);
+    let mut tails: Vec<(i32, i32)> = vec![(0, 0); 9];
     for line in input.lines() {
-        println!("{}", line);
+
         let Some((dir, count)) = line.split_once(" ") else { continue; };
 
         let count = count.parse::<i32>().unwrap();
@@ -20,17 +22,27 @@ pub fn day9(input: &str) -> (usize, usize) {
         };
 
         for _ in 0..count {
-            head = (head.0 + dx, head.1 + dy);           
-            let delta = (head.0-tail.0, head.1-tail.1);
-            if  delta.0.abs() > 1 || delta.1.abs() > 1 {
-                tail = (tail.0 + delta.0.signum(), tail.1 + delta.1.signum());
-                visited.insert(tail);
+            head = (head.0 + dx, head.1 + dy);
+
+            let mut knot_ahead = head;
+            for inx in 0..tails.len() {
+                let knot = tails[inx];
+                let delta = (knot_ahead.0 - knot.0, knot_ahead.1 - knot.1);
+                if delta.0.abs() > 1 || delta.1.abs() > 1 {
+                    tails[inx] = (knot.0 + delta.0.signum(), knot.1 + delta.1.signum());
+                    if inx == 0 {
+                        visited1.insert(tails[inx]);
+                    }
+                    if inx == 8 {
+                        visited9.insert(tails[inx]);
+                    }
+                }
+                knot_ahead = tails[inx];
             }
-            println!("{:?} {:?}", head, tail)
         }
     }
-    dbg!(visited.clone());    
-    return (visited.len(), input.len());
+    //dbg!(visited1.clone());
+    return (visited1.len(), visited9.len());
 }
 
 fn main() {
@@ -58,6 +70,24 @@ R 2
         );
 
         assert_eq!(p1, 13);
-        //assert_eq!(p2, 4);
+        assert_eq!(p2, 1);
+    }
+
+    #[test]
+    fn test2() {
+        let (p1, p2) = day9(
+            "R 5
+U 8
+L 8
+D 3
+R 17
+D 10
+L 25
+U 20
+",
+        );
+
+        assert_eq!(p1, 88);
+        assert_eq!(p2, 36);
     }
 }
