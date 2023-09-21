@@ -1,7 +1,70 @@
+use std::collections::{BTreeMap, VecDeque};
+
 const INPUT: &str = include_str!("day12.txt");
 
-pub fn day12(input: &str) -> (usize, usize) {
-    (input.len(), input.len())
+#[derive(PartialEq, PartialOrd, Eq, Ord, Clone, Copy)]
+struct Pos(usize, usize);
+
+fn grid_walk(grid: &[&[u8]], start: Pos) -> u32 {
+    let mut queue: VecDeque<(Pos, u8)> = VecDeque::new();
+    let mut distance: BTreeMap<Pos, u32> = BTreeMap::new();
+
+    distance.insert(start, 0);
+    queue.push_back((start, b'a'));
+
+    while !queue.is_empty() {
+        let (pos, current_height) = queue.pop_front().unwrap();
+
+        if current_height == b'E' {
+            return distance[&pos];
+        }
+
+        for delta in [(1, 0), (0, 1), (0, -1), (-1, 0)] {
+            let neighbour = Pos(
+                (pos.0 as isize + delta.0) as usize,
+                (pos.1 as isize + delta.1) as usize,
+            );
+            if !distance.contains_key(&neighbour) {
+                if let Some(&height) = grid.get(neighbour.0).and_then(|l| l.get(neighbour.1)) {
+                    let real_height = if height == b'E' { b'z' } else { height };
+                    if real_height <= current_height + 1 {
+                        queue.push_back((neighbour, height));
+                        distance.insert(neighbour, distance[&pos] + 1);
+                    }
+                }
+            }
+        }
+    }
+    panic!("No path")
+}
+
+pub fn day12(input: &str) -> (u32, usize) {
+    let mut start = Pos(0, 0);
+    let grid: Vec<&[u8]> = input
+        .lines()
+        .enumerate()
+        .map(|(line_inx, line_str)| {
+            let line = line_str.as_bytes();
+            if let Some(i) = line.iter().position(|&b| b == b'S') {
+                start = Pos(line_inx, i)
+            }            
+            line
+        })
+        .collect();
+
+    let p1 = grid_walk(&grid, start);
+
+    let mut distance: BTreeMap<&str, u32> = BTreeMap::new();
+   
+    distance.insert("near", 10);
+   
+    if !distance.contains_key("far") {
+        distance.insert("far", distance["near"] + 1);
+    }
+    
+    dbg!(distance);
+
+    (p1, input.len())
 }
 
 fn main() {
@@ -18,15 +81,15 @@ mod tests {
         let input = include_str!("day12.test1.txt");
         let (p1, p2) = day12(input);
 
-        assert_eq!(p1, 23);
-        assert_eq!(p2, 23);
+        assert_eq!(p1, 31);
+        assert_eq!(p2, 50);
     }
 
     #[test]
     fn test_main() {
         let (p1, p2) = day12(INPUT);
 
-        assert_eq!(p1, 23);
-        assert_eq!(p2, 23);
+        assert_eq!(p1, 520);
+        assert_eq!(p2, 7093);
     }
 }
