@@ -1,0 +1,1 @@
+cargo watch -x "test --bin day%1"
