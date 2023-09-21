@@ -45,7 +45,7 @@ fn parse_operation(input: &str) -> IResult<&str, Operation> {
             )),
             nom::character::complete::space0,
             nom::branch::alt((
-                nom::combinator::map(nom::character::complete::u64, |n| Value::Num(n)),
+                nom::combinator::map(nom::character::complete::u64, Value::Num),
                 nom::combinator::map(nom::bytes::complete::tag("old"), |_| Value::Old),
             )),
         )),
@@ -136,7 +136,7 @@ fn parse_input(input: &str) -> Vec<Monkey> {
     )(input)
     .unwrap();
 
-    return monkeys;
+    monkeys
 }
 
 fn monkey_itemcheck(monkey: &mut Monkey, worry_fn: &WorryFn) -> Option<(u64, u64)> {

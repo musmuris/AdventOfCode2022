@@ -34,7 +34,7 @@ pub fn day4(input: &str) -> (i32, i32) {
     let mut acc1 = 0;
     let mut acc2 = 0;
     for line in lines {
-        let ranges = line.split(',').map(|s| Range::from(s)).collect::<Vec<_>>();
+        let ranges = line.split(',').map(Range::from).collect::<Vec<_>>();
         if ranges[0].contains(&ranges[1]) || ranges[1].contains(&ranges[0]) {
             acc1 += 1;
         }

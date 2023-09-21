@@ -65,7 +65,7 @@ pub fn day8(input: &str) -> (usize, usize) {
 
     let p1 = tc.check_trees();
 
-    return (p1, 0);
+    (p1, 0)
 }
 
 fn main() {
