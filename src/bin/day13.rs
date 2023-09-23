@@ -27,11 +27,17 @@ impl Display for Packet {
 
 impl PartialOrd for Packet {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for Packet {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         match (self, other) {
-            (Packet::Num(l), Packet::Num(r)) => l.partial_cmp(r),
-            (Packet::Num(l), Packet::List(r)) => vec![Packet::Num(*l)].partial_cmp(r),
-            (Packet::List(l), Packet::Num(r)) => l.partial_cmp(&vec![Packet::Num(*r)]),
-            (Packet::List(l), Packet::List(r)) => l.partial_cmp(r),
+            (Packet::Num(l), Packet::Num(r)) => l.cmp(r),
+            (Packet::Num(l), Packet::List(r)) => vec![Packet::Num(*l)].cmp(r),
+            (Packet::List(l), Packet::Num(r)) => l.cmp(&vec![Packet::Num(*r)]),
+            (Packet::List(l), Packet::List(r)) => l.cmp(r),
         }
     }
 }
@@ -39,13 +45,15 @@ impl PartialOrd for Packet {
 impl PartialEq for Packet {
     fn eq(&self, other: &Self) -> bool {
         match (self, other) {
-            (Self::Num(l), Self::Num(r)) => l == r,            
+            (Self::Num(l), Self::Num(r)) => l == r,
             (Self::List(l), Self::List(r)) => l == r,
             (Self::List(l), Self::Num(r)) => l.eq(&vec![Packet::Num(*r)]),
-            (Self::Num(l), Self::List(r)) => vec![Packet::Num(*l)].eq(r)
+            (Self::Num(l), Self::List(r)) => vec![Packet::Num(*l)].eq(r),
         }
     }
 }
+
+impl Eq for Packet {}
 
 fn parse_packet(input: &str) -> IResult<&str, Packet> {
     branch::alt((
@@ -54,27 +62,49 @@ fn parse_packet(input: &str) -> IResult<&str, Packet> {
             multi::separated_list0(bytes::complete::tag(","), parse_packet),
             bytes::complete::tag("]"),
         )
-        .map(|v| Packet::List(v)),
-        character::complete::u32.map(|n| Packet::Num(n)),
+        .map(Packet::List),
+        character::complete::u32.map(Packet::Num),
     ))(input)
 }
 
 pub fn day13(input: &str) -> (usize, usize) {
-    let (input, data) = multi::separated_list0(
+    let (_, data) = multi::separated_list0(
         character::complete::multispace1,
         sequence::pair(
             sequence::terminated(parse_packet, character::complete::line_ending),
-            sequence::terminated(parse_packet, character::complete::line_ending)
-        )
+            sequence::terminated(parse_packet, character::complete::line_ending),
+        ),
     )(input)
     .unwrap();
 
     let mut count = 0;
     for (inx, pair) in data.iter().enumerate() {
-        if pair.0 < pair.1 { count += inx+1 }
+        if pair.0 < pair.1 {
+            count += inx + 1
+        }
     }
 
-    (count, input.len())
+    let mut all = data.iter().fold(Vec::new(), |mut v, d| {
+        v.push(&d.0);
+        v.push(&d.1);
+        v
+    });
+
+    let packet2 = Packet::List(vec![Packet::List(vec![Packet::Num(2)])]);
+    let packet6 = Packet::List(vec![Packet::List(vec![Packet::Num(6)])]);
+    all.push(&packet2);
+    all.push(&packet6);
+
+    all.sort();
+
+    let mut p2 = 1;
+    for (i, p) in all.iter().enumerate() {
+        if p == &&packet2 || p == &&packet6 {
+            p2 *= i + 1;
+        }
+    }
+
+    (count, p2)
 }
 
 fn main() {
@@ -92,15 +122,14 @@ mod tests {
         let (p1, p2) = day13(input);
 
         assert_eq!(p1, 13);
-        assert_eq!(p2, 209);
+        assert_eq!(p2, 140);
     }
 
     #[test]
-    #[ignore = "not yet"]
     fn test_main() {
         let (p1, p2) = day13(INPUT);
 
-        assert_eq!(p1, 23);
-        assert_eq!(p2, 23);
+        assert_eq!(p1, 4643);
+        assert_eq!(p2, 21614);
     }
 }
