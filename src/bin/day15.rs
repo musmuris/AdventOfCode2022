@@ -101,15 +101,10 @@ fn parse_lines(input: &str) -> IResult<&str, Vec<Sensor>> {
     ))
 }
 
-pub fn day15(input: &str, row: i64, max_dist: i64) -> (i64, i64) {
-    let (_, sensors) = parse_lines(input).unwrap();
-
-    let mut result: Vec<Range> = sensors.iter().filter_map(|s| s.range_at_row(row)).collect();
-    result.sort_by(|r1, r2| r1.start.cmp(&r2.start));
-
+fn merge_ranges(input:Vec<Range>)->Vec<Range> {
     let mut merged: Vec<Range> = Vec::new();
     let mut current: Option<Range> = None;
-    for i in result {
+    for i in input {
         current = match current {
             Some(x) => {
                 if x.can_merge(&i) {
@@ -125,8 +120,16 @@ pub fn day15(input: &str, row: i64, max_dist: i64) -> (i64, i64) {
     if let Some(left) = current {
         merged.push(left);
     }
+    merged
+}
 
-    let part1 = merged
+pub fn day15(input: &str, row: i64, max_dist: i64) -> (i64, i64) {
+    let (_, sensors) = parse_lines(input).unwrap();
+
+    let mut result: Vec<Range> = sensors.iter().filter_map(|s| s.range_at_row(row)).collect();
+    result.sort_by(|r1, r2| r1.start.cmp(&r2.start));
+
+    let part1 = merge_ranges(result)
         .iter()
         .fold(0, |acc, ran| acc + (ran.end - ran.start));
 
@@ -139,28 +142,11 @@ pub fn day15(input: &str, row: i64, max_dist: i64) -> (i64, i64) {
             .collect();
         result.sort_by(|r1, r2| r1.start.cmp(&r2.start));
         
-        let mut merged: Vec<Range> = Vec::new();
-        let mut current: Option<Range> = None;
-        for i in result {
-            current = match current {
-                Some(x) => {
-                    if x.can_merge(&i) {
-                        Some(x.merge(&i))
-                    } else {
-                        merged.push(x);
-                        Some(i)
-                    }
-                }
-                None => Some(i),
-            };
-        }
-        if let Some(left) = current {
-            merged.push(left);
-        }
-
+        let merged = merge_ranges(result);
         let count = merged
             .iter()
             .fold(0, |acc, ran| acc + (ran.end - ran.start));
+
         if count < max_dist {
             if found.is_some() {
                 panic!("More than one row found")
