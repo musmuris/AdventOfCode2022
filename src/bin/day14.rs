@@ -70,7 +70,6 @@ pub fn day14(input: &str) -> (usize, usize) {
 
 
 fn main() {
-    println!("1asdasdasdasdd");
     let (p1, p2) = day14(INPUT);
     println!("{}\n{}", p1, p2);
 }
