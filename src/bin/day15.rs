@@ -1,7 +1,7 @@
 use nom::IResult;
 use std::cmp::{max, min};
 
-const INPUT: &str = include_str!("day15.txt");
+const INPUT: &str = include_str!("inputs/day15.txt");
 
 #[derive(Clone)]
 #[derive(Debug)]
@@ -181,7 +181,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day15.test1.txt");
+        let input = include_str!("inputs/day15.test1.txt");
         let (p1, p2) = day15(input, 10, 20);
 
         assert_eq!(p1, 26);

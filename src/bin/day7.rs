@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-const INPUT: &str = include_str!("day7.txt");
+const INPUT: &str = include_str!("inputs/day7.txt");
 
 pub fn day7(input: &str) -> (u32, u32) {
     let mut current_dir = "root".to_string();
@@ -82,7 +82,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day7.test1.txt");
+        let input = include_str!("inputs/day7.test1.txt");
         let (p1, p2) = day7(input);
 
         assert_eq!(p1, 95437);

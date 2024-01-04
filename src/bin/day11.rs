@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 
 use nom::*;
 
-const INPUT: &str = include_str!("day11.txt");
+const INPUT: &str = include_str!("inputs/day11.txt");
 
 #[derive(Clone, Debug)]
 enum Value {
@@ -215,7 +215,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day11.test1.txt");
+        let input = include_str!("inputs/day11.test1.txt");
         let (p1, p2) = day11(input);
 
         assert_eq!(p1, 10605);

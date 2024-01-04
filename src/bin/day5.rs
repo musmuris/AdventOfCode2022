@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day5.txt");
+const INPUT: &str = include_str!("inputs/day5.txt");
 
 pub fn day5(input: &str) -> (String, String) {
     let delim = if input.contains("\r\n") {
@@ -74,7 +74,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day5.test1.txt");
+        let input = include_str!("inputs/day5.test1.txt");
 
         let (p1, p2) = day5(input);
 

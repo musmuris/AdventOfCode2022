@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-const INPUT: &str = include_str!("day2.txt");
+const INPUT: &str = include_str!("inputs/day2.txt");
 
 pub fn day2(input: &str) -> (i32, i32) {
     let scores = HashMap::from([
@@ -55,7 +55,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day2.test1.txt");
+        let input = include_str!("inputs/day2.test1.txt");
         let (p1, p2) = day2(input);
 
         assert_eq!(p1, 15);

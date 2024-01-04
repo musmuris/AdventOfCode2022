@@ -1,7 +1,7 @@
 use std::collections::BTreeSet;
 use std::collections::VecDeque;
 
-const INPUT: &str = include_str!("day6.txt");
+const INPUT: &str = include_str!("inputs/day6.txt");
 
 fn find_marker(input: &str, window_size: usize) -> Option<usize> {
     let mut seen: VecDeque<char> = VecDeque::new();

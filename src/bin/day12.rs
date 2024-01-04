@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap, VecDeque};
 
-const INPUT: &str = include_str!("day12.txt");
+const INPUT: &str = include_str!("inputs/day12.txt");
 
 #[derive(PartialEq, PartialOrd, Eq, Ord, Clone, Copy)]
 struct Pos(usize, usize);
@@ -69,7 +69,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day12.test1.txt");
+        let input = include_str!("inputs/day12.test1.txt");
         let (p1, p2) = day12(input);
 
         assert_eq!(p1, 31);

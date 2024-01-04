@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day0.txt");
+const INPUT: &str = include_str!("inputs/day0.txt");
 
 pub fn day0(input: &str) -> (usize, usize) {
     (input.len(), input.len())
@@ -15,7 +15,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day0.test1.txt");
+        let input = include_str!("inputs/day0.test1.txt");
         let (p1, p2) = day0(input);
 
         assert_eq!(p1, input.len());
