@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day10.txt");
+const INPUT: &str = include_str!("inputs/day10.txt");
 
 
 struct Cpu {
@@ -49,8 +49,8 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day10.test1.txt");
-        let p2pass = include_str!("day10.test1.result.txt").replace("\r\n", "\n");
+        let input = include_str!("inputs/day10.test1.txt");
+        let p2pass = include_str!("inputs/day10.test1.result.txt").replace("\r\n", "\n");
         let (p1, p2) = day10(input);
         
         assert_eq!(p1, 13140);
@@ -60,7 +60,7 @@ mod tests {
     #[test]
     fn test_main() {
         let (p1, p2) = day10(INPUT);
-        let main_pass = include_str!("day10.main.result.txt").replace("\r\n", "\n");
+        let main_pass = include_str!("inputs/day10.main.result.txt").replace("\r\n", "\n");
 
         assert_eq!(p1, 14240);
         assert_eq!(p2, main_pass); // PLULKBZH

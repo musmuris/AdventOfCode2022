@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use std::collections::HashSet;
 
-const INPUT: &str = include_str!("day3.txt");
+const INPUT: &str = include_str!("inputs/day3.txt");
 
 pub fn day3(input: &str) -> (u32, u32) {
     let mut acc1: u32 = 0;
@@ -61,7 +61,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day3.test1.txt");
+        let input = include_str!("inputs/day3.test1.txt");
 
         let (p1, p2) = day3(input);
 

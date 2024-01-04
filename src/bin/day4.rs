@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day4.txt");
+const INPUT: &str = include_str!("inputs/day4.txt");
 
 struct Range {
     start: u32,
@@ -56,7 +56,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day4.test1.txt");
+        let input = include_str!("inputs/day4.test1.txt");
 
         let (p1, p2) = day4(input);
 

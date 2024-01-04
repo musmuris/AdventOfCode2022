@@ -3,7 +3,7 @@ use std::collections::{HashMap, VecDeque, BTreeSet};
 use itertools::Itertools;
 use nom::*;
 
-const INPUT: &str = include_str!("day16.txt");
+const INPUT: &str = include_str!("inputs/day16.txt");
 
 #[derive(Debug)]
 struct Valve<'a> {
@@ -217,7 +217,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day16.test1.txt");
+        let input = include_str!("inputs/day16.test1.txt");
         let (p1, p2) = day16(input);
 
         assert_eq!(p1, 1651);

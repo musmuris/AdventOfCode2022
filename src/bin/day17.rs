@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-const INPUT: &str = include_str!("day17.txt");
+const INPUT: &str = include_str!("inputs/day17.txt");
 
 struct Point {
     x: i64,
@@ -249,7 +249,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day17.test1.txt");
+        let input = include_str!("inputs/day17.test1.txt");
         let (p1, p2) = day17(input);
 
         assert_eq!(p1, 3068);

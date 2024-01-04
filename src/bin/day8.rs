@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day8.txt");
+const INPUT: &str = include_str!("inputs/day8.txt");
 
 struct TreeChecker<'a> {
     trees: &'a Vec<&'a [u8]>,
@@ -82,7 +82,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day8.test1.txt");
+        let input = include_str!("inputs/day8.test1.txt");
         let (p1, p2) = day8(input);
 
         assert_eq!(p1, 21);

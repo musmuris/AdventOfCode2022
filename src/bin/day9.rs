@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-const INPUT: &str = include_str!("day9.txt");
+const INPUT: &str = include_str!("inputs/day9.txt");
 
 pub fn day9(input: &str) -> (usize, usize) {
     let mut visited1: HashSet<(i32, i32)> = HashSet::new();
@@ -57,7 +57,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day9.test1.txt");
+        let input = include_str!("inputs/day9.test1.txt");
         let (p1, p2) = day9(input);
 
         assert_eq!(p1, 13);
@@ -66,7 +66,7 @@ mod tests {
 
     #[test]
     fn test2() {
-        let input = include_str!("day9.test2.txt");
+        let input = include_str!("inputs/day9.test2.txt");
         let (p1, p2) = day9(input);
 
         assert_eq!(p1, 88);

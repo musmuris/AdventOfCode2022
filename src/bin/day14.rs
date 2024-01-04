@@ -2,7 +2,7 @@ use itertools::Itertools;
 use nom::IResult;
 use std::collections::BTreeSet;
 
-const INPUT: &str = include_str!("day14.txt");
+const INPUT: &str = include_str!("inputs/day14.txt");
 
 fn parse_line(input: &str) -> IResult<&str, Vec<(u32, u32)>> {
     nom::multi::separated_list0(
@@ -80,7 +80,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day14.test1.txt");
+        let input = include_str!("inputs/day14.test1.txt");
         let (p1, p2) = day14(input);
 
         assert_eq!(p1, 24);

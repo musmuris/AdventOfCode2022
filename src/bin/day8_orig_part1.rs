@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day8.txt");
+const INPUT: &str = include_str!("inputs/day8.txt");
 
 pub fn day8(input: &str) -> (u32, u32) {
     let trees: Vec<&[u8]> = input.lines().map(|l| l.as_bytes()).collect();
@@ -54,7 +54,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day8.test1.txt");
+        let input = include_str!("inputs/day8.test1.txt");
         let (p1, _p2) = day8(input);
 
         assert_eq!(p1, 21);

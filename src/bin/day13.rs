@@ -3,7 +3,7 @@ use std::fmt::Display;
 use itertools::Itertools;
 use nom::*;
 
-const INPUT: &str = include_str!("day13.txt");
+const INPUT: &str = include_str!("inputs/day13.txt");
 
 enum Packet {
     Num(u32),
@@ -118,7 +118,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day13.test1.txt");
+        let input = include_str!("inputs/day13.test1.txt");
         let (p1, p2) = day13(input);
 
         assert_eq!(p1, 13);

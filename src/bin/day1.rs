@@ -1,4 +1,4 @@
-const INPUT: &str = include_str!("day1.txt");
+const INPUT: &str = include_str!("inputs/day1.txt");
 
 pub fn day1(input: &str) -> (i32, i32) {
     let mut acc = 0;
@@ -41,7 +41,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let input = include_str!("day1.test1.txt");
+        let input = include_str!("inputs/day1.test1.txt");
         let (p1, p2) = day1(input);
 
         assert_eq!(p1, 24000);
