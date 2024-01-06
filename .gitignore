@@ -17,4 +17,5 @@ target/
 
 /target
 
-inputs
+**/inputs/*.txt
+!**/day0*.txt
