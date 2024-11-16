@@ -2,6 +2,11 @@ use itertools::Itertools;
 
 const INPUT: &str = include_str!("inputs/day19.txt");
 
+// It's now 2024 and I've just got back to this:
+// It's clearly a very inefficient method but I must have let it run overnight 
+// to get my answer back then!
+
+
 struct BluePrint {
     id: u32,
     ore_need: u32,
@@ -24,7 +29,7 @@ struct State {
     geode_robots: u32,
 }
 
-fn runBluePrint(b: &BluePrint) -> u32 {
+fn run_blue_print(b: &BluePrint, time: u32) -> u32 {
     let initial = State {
         ore_robots: 1,
         ..State::default()
@@ -44,14 +49,14 @@ fn runBluePrint(b: &BluePrint) -> u32 {
             geodes: state.geodes + state.geode_robots,
             ..state
         };
-        if current.minute == 24 {
+        if current.minute == time {
             max = max.max(current.geodes);
             continue;
-        }
-        let time_left = 24 - current.minute;
-        if time_left * current.geode_robots + current.geodes + (time_left / 2)  < max {
-          // println!("bail");
-            //continue;
+        }        
+
+        let time_left = time - current.minute;
+        if time_left * (time_left-1)  + time_left * current.geode_robots + current.geodes < max {
+            continue;
         }
 
         if state.ore >= b.geode_need.0 && state.obsidian >= b.geode_need.1 {
@@ -63,7 +68,7 @@ fn runBluePrint(b: &BluePrint) -> u32 {
             });
             continue;
         }
-        if state.ore >= b.obsidian_need.0 && state.clay >= b.obsidian_need.1 && state.obsidian_robots < b.geode_need.1 && state.obsidian < b.geode_need.1 {
+        if state.ore >= b.obsidian_need.0 && state.clay >= b.obsidian_need.1 && state.obsidian_robots < b.geode_need.1 {
             stack.push(State {
                 ore: current.ore - b.obsidian_need.0,
                 clay: current.clay - b.obsidian_need.1,
@@ -71,7 +76,7 @@ fn runBluePrint(b: &BluePrint) -> u32 {
                 ..current
             });
         }
-        if state.ore >= b.clay_need && state.clay_robots < b.obsidian_need.1 && state.clay < b.obsidian_need.1 {
+        if state.ore >= b.clay_need && state.clay_robots < b.obsidian_need.1 {
             stack.push(State {
                 ore: current.ore - b.clay_need,
                 clay_robots: current.clay_robots + 1,
@@ -89,13 +94,13 @@ fn runBluePrint(b: &BluePrint) -> u32 {
         stack.push(current);
     }
 
-    println!("BP {} max is {}", b.id, max);
+    println!("BP {} over {} max is {}", b.id, time, max);
 
     return max;
 }
 
 pub fn day19(input: &str) -> (usize, usize) {
-    let bluePrints = input
+    let blue_prints = input
         .lines()
         .map(|l| {
             l.split(|c: char| !c.is_numeric())
@@ -113,11 +118,16 @@ pub fn day19(input: &str) -> (usize, usize) {
         .collect::<Vec<_>>();
 
     let mut q = 0;
-    for b in bluePrints {
-        q += b.id * runBluePrint(&b);
+    let mut p2 = 1;
+    for b in blue_prints {
+        q += b.id * run_blue_print(&b, 24);
+        if b.id < 4 {
+            // Takes too long!!
+            //p2 *= run_blue_print(&b, 32)
+        }
     }
 
-    (q as usize, input.len())
+    (q as usize, p2 as usize)
 }
 
 fn main() {
@@ -134,15 +144,15 @@ mod tests {
         let input = include_str!("inputs/day19.test1.txt");
         let (p1, p2) = day19(input);
 
-        assert_eq!(p1, input.len());
-        assert_eq!(p2, input.len());
+        assert_eq!(p1, 33);
+        assert_eq!(p2, 3472);
     }
 
     #[test]
     fn test_main() {
         let (p1, p2) = day19(INPUT);
 
-        assert_eq!(p1, INPUT.len());
-        assert_eq!(p2, INPUT.len());
+        assert_eq!(p1, 988);
+        assert_eq!(p2, 8580);
     }
 }
